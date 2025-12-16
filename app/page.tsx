@@ -22,19 +22,23 @@ export default function Home() {
   return (
     <main className="relative w-full min-h-screen bg-[#050505] text-white selection:bg-[#00f0ff] selection:text-black">
       
-      {/* === 1. 顶部导航栏 === */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-6 transition-all duration-300 ${isTerminal ? 'opacity-0 pointer-events-none' : 'opacity-100 bg-black/10 backdrop-blur-md border-b border-white/5'}`}>
+      {/* === 1. 顶部导航栏 (移动端优化版) === */}
+      {/* 修改点：flex-col md:flex-row (手机竖排，电脑横排)，增加 gap 控制间距 */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-4 md:py-6 transition-all duration-300 gap-3 md:gap-0 ${isTerminal ? 'opacity-0 pointer-events-none' : 'opacity-100 bg-black/10 backdrop-blur-md border-b border-white/5'}`}>
+        
         <div 
           className="flex items-center gap-2 cursor-pointer group"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
         >
           <div className="w-2 h-2 bg-[#00f0ff] rounded-full group-hover:animate-pulse" />
-          <div className="text-white font-bold tracking-wider text-sm md:text-lg font-sans">
+          {/* 修改点：whitespace-nowrap 防止 Logo 文字在手机上换行 */}
+          <div className="text-white font-bold tracking-wider text-sm md:text-lg font-sans whitespace-nowrap">
             NEXUS STRATEGY <span className="text-[#00f0ff] font-normal ml-1">元核智策</span>
           </div>
         </div>
 
-        <div className="flex gap-6 md:gap-10 text-xs md:text-sm font-mono text-gray-400">
+        {/* 修改点：手机上文字调小 (text-xs)，增加顶部间距 (mt-2) */}
+        <div className="flex gap-6 md:gap-10 text-xs md:text-sm font-mono text-gray-400 mt-2 md:mt-0">
           <button onClick={() => scrollToSection('about')} className="hover:text-[#00f0ff] transition-colors uppercase tracking-widest hover:underline decoration-[#00f0ff] underline-offset-4">
             关于我们
           </button>
@@ -96,9 +100,13 @@ export default function Home() {
         >
           <div className="max-w-4xl text-center">
              <h3 className="text-[#00f0ff] font-mono text-xl mb-8 tracking-widest">// ABOUT US</h3>
-             <h2 className="text-3xl md:text-5xl font-bold mb-8">连接商业智慧，驱动核心增长</h2>
              
-             <div className="text-gray-400 leading-relaxed text-lg space-y-6 max-w-3xl mx-auto">
+             {/* 修改点：text-2xl (手机字号), text-balance (平衡换行), px-4 (防贴边) */}
+             <h2 className="text-2xl md:text-5xl font-bold mb-8 text-balance px-4 leading-relaxed">
+               连接商业智慧，驱动核心增长
+             </h2>
+             
+             <div className="text-gray-400 leading-relaxed text-lg space-y-6 max-w-3xl mx-auto px-4">
                <p>
                  元核智策（Nexus Strategy）是全球首批智能体化组织战略咨询公司
                </p>
@@ -241,7 +249,7 @@ export default function Home() {
 
                 </div>
 
-                {/* 底部备案行 (修改部分) */}
+                {/* 底部备案行 */}
                 <div className="border-t border-white/10 pt-8 flex justify-center items-center text-xs text-gray-500 font-mono">
                   <p className="text-center opacity-60 hover:opacity-100 transition-opacity cursor-default">
                     ©2025 元核智策（上海）企业管理有限公司 <span className="mx-2">|</span> 沪ICP备2025149898号-2
